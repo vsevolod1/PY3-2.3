@@ -1,25 +1,11 @@
+import json
+from pprint import pprint
 #Делаем загрузку таблицы из файла
 def cook_book():
     cook_book = {}
-    with open('recipes.txt', 'r') as f:
-        file_end = False
-        while file_end == False:
-            recipe = f.readline().strip()
-            num = int(f.readline().strip())
-            ingridient_list = []
-
-            for _ in range(num):
-                ingridients = f.readline().strip()
-                ingridients = ingridients.split(' | ')
-                ingridient_list.append({'ingridient_name': ingridients[0], 'quantity': int(ingridients[1]), 'measure': ingridients[2]})
-                num -= 1
-
-            cook_book[recipe] = ingridient_list
-            if f.readline():
-                file_end = False
-            else:
-                file_end = True
-    return (cook_book)
+    with open('recipes.json') as f:
+        recipes = json.load(f)
+    return recipes
 
 #Формирование списка покупок
 def get_shop_list_by_dishes(dishes, recipes_book, person_count):
